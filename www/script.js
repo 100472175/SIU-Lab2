@@ -65,32 +65,34 @@ const swipeList = document.getElementsByClassName("element-task-list");
 let startX = 0;
 let startY = 0;
 
-swipeList.addEventListener("touchstart", function (event) {
-  startX = event.touches[0].clientX;
-  startY = event.touches[0].clientY;
-});
+swipeList.forEach((element) => {
+  element.addEventListener("touchstart", function (event) {
+    startX = event.touches[0].clientX;
+    startY = event.touches[0].clientY;
+  });
 
-swipeList.addEventListener("touchmove", function (event) {
-  const currentX = event.touches[0].clientX;
-  const currentY = event.touches[0].clientY;
-  const diffX = currentX - startX;
-  const diffY = currentY - startY;
+  element.addEventListener("touchmove", function (event) {
+    const currentX = event.touches[0].clientX;
+    const currentY = event.touches[0].clientY;
+    const diffX = currentX - startX;
+    const diffY = currentY - startY;
 
-  if (Math.abs(diffX) > Math.abs(diffY)) {
-    event.preventDefault(); // Prevent vertical scrolling while swiping horizontally
-  }
-});
-
-swipeList.addEventListener("touchend", function (event) {
-  const endX = event.changedTouches[0].clientX;
-  const endY = event.changedTouches[0].clientY;
-  const diffX = endX - startX;
-  const diffY = endY - startY;
-
-  if (Math.abs(diffX) > Math.abs(diffY)) {
-    if (diffX > 2000) {
-      console.log("Swiped right");
-      // Perform your action for swiping right here
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+      event.preventDefault(); // Prevent vertical scrolling while swiping horizontally
     }
-  }
+  });
+
+  element.addEventListener("touchend", function (event) {
+    const endX = event.changedTouches[0].clientX;
+    const endY = event.changedTouches[0].clientY;
+    const diffX = endX - startX;
+    const diffY = endY - startY;
+
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX > 2000) {
+        console.log("Swiped right");
+        // Perform your action for swiping right here
+      }
+    }
+  });
 });
