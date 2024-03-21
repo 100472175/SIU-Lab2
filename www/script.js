@@ -57,8 +57,8 @@ const add = () => {
     done: false,
   };
   taskList.push(task);
-  vibrate();
   render();
+  vibrate();
   // Save the task to the json file
   saveTasks();
 };
@@ -146,7 +146,14 @@ const clear = () => {
 };
 
 const vibrate = () => {
-  console.log("Vibrate");
+  // Check if the Vibration API is supported
+  if ("vibrate" in navigator) {
+    // Vibrate for 200 milliseconds
+    navigator.vibrate(200);
+  } else {
+    // Vibration API not supported
+    console.log("Vibration API not supported");
+  }
 };
 
 const addButton = document.querySelector("#fab-add");

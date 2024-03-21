@@ -71,19 +71,12 @@ const handleRequest = async (request, response) => {
     request.on("end", () => {
       try {
         fs.writeFileSync("tasks.json", body); // Save tasks to tasks.json file
-        sendResponse(
-          response,
-          JSON.stringify({ message: "Tasks saved successfully" }),
-          "application/json"
-        );
+        sendResponse(response, JSON.stringify({ message: "Tasks saved successfully" }), "application/json");
       } catch (error) {
-        sendResponse(
-          response,
-          JSON.stringify({ error: "Failed to save tasks" }),
-          "application/json"
-        );
+        sendResponse(response, JSON.stringify({ error: "Failed to save tasks" }), "application/json");
       }
     });
+
   } else {
     response.writeHead(405, { "Content-Type": "text/html" });
     response.write(`M&eacutetodo ${request.method} no permitido!\r\n`);
