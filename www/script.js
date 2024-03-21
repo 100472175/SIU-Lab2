@@ -45,8 +45,8 @@ const add = () => {
   const tak_name = document.querySelector("#task-name").value;
   document.querySelector("#task-name").value = "";
   if (tak_name === "") {
-    alert("You have to input a task name");
     vibrate([200, 100, 200]);
+    alert("You have to input a task name");
     return;
   }
   const task = {
@@ -72,6 +72,7 @@ const toggleDone = (task) => {
   task.done = !task.done;
   render();
   saveTasks();
+  vibrate([200, 50, 200]);
 };
 
 const render = () => {
@@ -159,6 +160,15 @@ const clearButton = document.querySelector("#fab-clear");
 
 //addButton.addEventListener("touchend", add);
 addButton.addEventListener("click", add);
+
+// Añadir que la tecla de enter añada una tarea
+document
+  .querySelector("#task-name")
+  .addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      add();
+    }
+  });
 
 // El mousedown está puesto para que funcione en ordenadores sin pantalla táctil
 addButton.addEventListener("mousedown", function (event) {
