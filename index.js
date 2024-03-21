@@ -37,9 +37,14 @@ const handleRequest = async (request, response) => {
         content = await serveStaticFile("www/style.css");
         contentType = "text/css";
         break;
-      case "/tasks/get":
-        content = await serveStaticFile("tasks.json");
-        contentType = "application/json";
+      case "/tasks/get": // Handle the tasks.json file
+        try {
+          content = await serveStaticFile("tasks.json");
+          contentType = "application/json";
+        } catch (error) {
+          content = JSON.stringify({ error: "File not found" });
+          contentType = "application/json";
+        }
         break;
       default:
         content = "Ruta no v&aacutelida\r\n";

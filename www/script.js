@@ -4,7 +4,15 @@ const taskList = [];
 // Read from the json(tasks.json) and add to the array
 
 const loadTasks = () => {
-  fetch("/tasks/get");
+  data = fetch("/tasks/get");
+  data
+    .then((response) => response.json())
+    .then((data) => {
+      data.forEach((task) => {
+        taskList.push(task);
+      });
+      render();
+    });
 };
 
 const add = () => {
@@ -100,3 +108,4 @@ for (let i = 0; i < swipeList.length; i++) {
     }
   });
 }
+loadTasks();
