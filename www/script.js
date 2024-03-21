@@ -41,8 +41,10 @@ const add = () => {
   const tak_name = document.querySelector("#task-name").value;
   document.querySelector("#task-name").value = "";
   if (tak_name === "") {
-    vibrate([200, 100, 200]);
-    alert("You have to input a task name");
+    vibrate([200, 100, 200]).then(() => {
+      alert("You have to input a task name");
+      console.log("You have to input a task name");
+    });
     return;
   }
   const task = {
@@ -58,16 +60,17 @@ const add = () => {
 };
 
 const remove = (index) => {
+  vibrate([100, 100, 100]);
   taskList.splice(index, 1);
   render();
   saveTasks();
 };
 
 const toggleDone = (task) => {
+  vibrate([200, 50, 200]);
   task.done = !task.done;
   render();
   saveTasks();
-  vibrate([200, 50, 200]);
 };
 
 const render = () => {
@@ -141,7 +144,6 @@ const clear = () => {
 const vibrate = (pattern) => {
   // Check if the Vibration API is supported
   if ("vibrate" in navigator) {
-    // Vibrate for 200 milliseconds
     navigator.vibrate(pattern);
   } else {
     // Vibration API not supported
@@ -216,40 +218,3 @@ setInterval(() => {
 
 */
 // Loop through each element with the class name "element-task-list"
-/*
-for (let i = 0; i < swipeList.length; i++) {
-  const element = swipeList[i];
-
-  element.addEventListener("touchstart", function (event) {
-    startX = event.touches[0].clientX;
-    startY = event.touches[0].clientY;
-  });
-
-  element.addEventListener("touchmove", function (event) {
-    const currentX = event.touches[0].clientX;
-    const currentY = event.touches[0].clientY;
-    const diffX = currentX - startX;
-    const diffY = currentY - startY;
-
-    if (Math.abs(diffX) > Math.abs(diffY)) {
-      event.preventDefault(); // Prevent vertical scrolling while swiping horizontally
-    }
-  });
-
-  element.addEventListener("touchend", function (event) {
-    const endX = event.changedTouches[0].clientX;
-    const endY = event.changedTouches[0].clientY;
-    const diffX = endX - startX;
-    const diffY = endY - startY;
-
-    if (Math.abs(diffX) > Math.abs(diffY)) {
-      if (diffX > 200) {
-        // Adjust the threshold as needed
-        console.log("Swiped right");
-        alert("Swiped right");
-        // Perform your action for swiping right here
-      }
-    }
-  });
-}
-*/

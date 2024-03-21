@@ -48,7 +48,7 @@ li:last-child {
 .done-class {
   text-decoration: line-through;
   color: #999999;
-  background-color: greenyellow;
+  background-color: cyan;
 }
 
 .not-done-class {
