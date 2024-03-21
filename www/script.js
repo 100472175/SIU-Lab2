@@ -1,9 +1,3 @@
-// Vibration API
-if ("vibrate" in navigator) {
-  // Vibrate for 1000ms
-  navigator.vibrate(200);
-}
-
 // Fetch from a json to an array of tasks
 const taskList = [];
 
@@ -23,8 +17,7 @@ const loadTasksBase = () => {
 };
 
 const loadTasks = () => {
-  data = fetch("/tasks/get");
-  data
+  fetch("/tasks/get")
     .then((response) => response.json())
     .then((data) => {
       data.forEach((task) => {
@@ -41,7 +34,11 @@ const saveTasks = () => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(taskList),
-  });
+  })
+    .then((response) => response.text())
+    .then((message) => {
+      console.log(message); // This will log the response message
+    });
 };
 
 const add = () => {
@@ -49,6 +46,7 @@ const add = () => {
   document.querySelector("#task-name").value = "";
   if (tak_name === "") {
     alert("You have to input a task name");
+    vibrate([200, 100, 200]);
     return;
   }
   const task = {
@@ -58,7 +56,7 @@ const add = () => {
   };
   taskList.push(task);
   render();
-  vibrate();
+  vibrate([200]);
   // Save the task to the json file
   saveTasks();
 };
@@ -70,7 +68,11 @@ const remove = (index) => {
   saveTasks();
 };
 
-const toggleDone = () => {};
+const toggleDone = (task) => {
+  task.done = !task.done;
+  render();
+  saveTasks();
+};
 
 const render = () => {
   const taskListElement = document.querySelector("#task-list");
@@ -86,9 +88,7 @@ const render = () => {
     // Add the two seconds hold event to mark the task as done
     taskElement.addEventListener("touchstart", function (event) {
       holdTimer = setTimeout(function () {
-        task.done = !task.done;
-        render();
-        saveTasks();
+        toggleDone(task);
       }, 2000); // 2000 milliseconds = 2 seconds
     });
 
@@ -125,8 +125,6 @@ const render = () => {
 
       if (Math.abs(diffX) > Math.abs(diffY)) {
         if (diffX > 200) {
-          //console.log("Swiped right");
-          //alert("Swiped right");
           remove(taskList.indexOf(task));
         }
       }
@@ -145,11 +143,11 @@ const clear = () => {
   saveTasks();
 };
 
-const vibrate = () => {
+const vibrate = (pattern) => {
   // Check if the Vibration API is supported
   if ("vibrate" in navigator) {
     // Vibrate for 200 milliseconds
-    navigator.vibrate(200);
+    navigator.vibrate(pattern);
   } else {
     // Vibration API not supported
     console.log("Vibration API not supported");

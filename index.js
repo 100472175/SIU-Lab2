@@ -64,19 +64,34 @@ const handleRequest = async (request, response) => {
 
     sendResponse(response, content, contentType);
   } else if (request.method === "POST") {
+    if (url !== "/tasks/save") {
+      response.writeHead(496, { "Content-Type": "text/html" });
+      response.write(`Ruta no v&aacutelida!\r\n`);
+      return;
+    }
     let body = "";
     request.on("data", (chunk) => {
       body += chunk.toString();
     });
+    request.on("error", (error) => {
+      console.error(error);
+    });
     request.on("end", () => {
       try {
         fs.writeFileSync("tasks.json", body); // Save tasks to tasks.json file
-        sendResponse(response, JSON.stringify({ message: "Tasks saved successfully" }), "application/json");
+        sendResponse(
+          response,
+          JSON.stringify({ message: " Tasks saved successfully" }),
+          "application/json"
+        );
       } catch (error) {
-        sendResponse(response, JSON.stringify({ error: "Failed to save tasks" }), "application/json");
+        sendResponse(
+          response,
+          JSON.stringify({ error: "Failed to save tasks" }),
+          "application/json"
+        );
       }
     });
-
   } else {
     response.writeHead(405, { "Content-Type": "text/html" });
     response.write(`M&eacutetodo ${request.method} no permitido!\r\n`);
