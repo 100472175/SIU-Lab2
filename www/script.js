@@ -65,7 +65,10 @@ const swipeList = document.getElementsByClassName("element-task-list");
 let startX = 0;
 let startY = 0;
 
-swipeList.forEach((element) => {
+// Loop through each element with the class name "element-task-list"
+for (let i = 0; i < swipeList.length; i++) {
+  const element = swipeList[i];
+
   element.addEventListener("touchstart", function (event) {
     startX = event.touches[0].clientX;
     startY = event.touches[0].clientY;
@@ -90,9 +93,10 @@ swipeList.forEach((element) => {
 
     if (Math.abs(diffX) > Math.abs(diffY)) {
       if (diffX > 2000) {
+        // Adjust the threshold as needed
         console.log("Swiped right");
         // Perform your action for swiping right here
       }
     }
   });
-});
+}
