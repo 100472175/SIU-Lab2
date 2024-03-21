@@ -109,3 +109,8 @@ for (let i = 0; i < swipeList.length; i++) {
   });
 }
 loadTasks();
+
+// Fix para el servidor que no muestra la etiqueta con id:add-task-container
+
+const addTaskContainer = document.querySelector("#add-task-container");
+addTaskContainer.style.display = "";
