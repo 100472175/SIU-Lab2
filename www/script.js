@@ -28,17 +28,13 @@ const loadTasks = () => {
 };
 
 const saveTasks = () => {
-  fetch("/tasks/save", {
+  fetch("/tasklist/update", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(taskList),
-  })
-    .then((response) => response.text())
-    .then((message) => {
-      console.log(message); // This will log the response message
-    });
+  });
 };
 
 const add = () => {
@@ -62,7 +58,6 @@ const add = () => {
 };
 
 const remove = (index) => {
-  console.log("Remove task");
   taskList.splice(index, 1);
   render();
   saveTasks();
@@ -138,7 +133,6 @@ const render = () => {
 
 // Limia la lista de tareas, eliminando todos los elementos de la lista de tareas
 const clear = () => {
-  console.log("Clear tasks");
   taskList.length = 0;
   render();
   saveTasks();
@@ -174,7 +168,6 @@ document
 addButton.addEventListener("mousedown", function (event) {
   touchStartTime = Date.now();
   touchTimer = setTimeout(() => {
-    console.log("Restored the task list to the original state");
     alert("Restored the task list to the original state");
     loadTasksBase();
     clearTimeout(touchTimer);
@@ -190,7 +183,6 @@ addButton.addEventListener("mouseup", function (event) {
 addButton.addEventListener("touchstart", function (event) {
   touchStartTime = Date.now();
   touchTimer = setTimeout(() => {
-    console.log("Restored the task list to the original state");
     alert("Restored the task list to the original state");
     loadTasksBase();
     clearTimeout(touchTimer);

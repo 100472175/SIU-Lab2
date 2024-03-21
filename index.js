@@ -64,7 +64,7 @@ const handleRequest = async (request, response) => {
 
     sendResponse(response, content, contentType);
   } else if (request.method === "POST") {
-    if (url !== "/tasks/save") {
+    if (url !== "/tasklist/update") {
       response.writeHead(496, { "Content-Type": "text/html" });
       response.write(`Ruta no v&aacutelida!\r\n`);
       return;
