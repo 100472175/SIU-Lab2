@@ -38,6 +38,7 @@ li {
   border-bottom: 1px solid #e0e0e0;
   -webkit-animation: alternate 0.1s ease-in-out;
   -webkit-user-select: none;
+  user-select: none;
 }
 
 li:last-child {

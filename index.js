@@ -37,9 +37,20 @@ const handleRequest = async (request, response) => {
         content = await serveStaticFile("www/style.css");
         contentType = "text/css";
         break;
+
       case "/tasks/get": // Handle the tasks.json file
         try {
           content = await serveStaticFile("tasks.json");
+          contentType = "application/json";
+        } catch (error) {
+          content = JSON.stringify({ error: "File not found" });
+          contentType = "application/json";
+        }
+        break;
+
+      case "/tasksBase/get": // Handle the tasksBase.json file
+        try {
+          content = await serveStaticFile("tasksBase.json");
           contentType = "application/json";
         } catch (error) {
           content = JSON.stringify({ error: "File not found" });
@@ -52,6 +63,27 @@ const handleRequest = async (request, response) => {
     }
 
     sendResponse(response, content, contentType);
+  } else if (request.method === "POST") {
+    let body = "";
+    request.on("data", (chunk) => {
+      body += chunk.toString();
+    });
+    request.on("end", () => {
+      try {
+        fs.writeFileSync("tasks.json", body); // Save tasks to tasks.json file
+        sendResponse(
+          response,
+          JSON.stringify({ message: "Tasks saved successfully" }),
+          "application/json"
+        );
+      } catch (error) {
+        sendResponse(
+          response,
+          JSON.stringify({ error: "Failed to save tasks" }),
+          "application/json"
+        );
+      }
+    });
   } else {
     response.writeHead(405, { "Content-Type": "text/html" });
     response.write(`M&eacutetodo ${request.method} no permitido!\r\n`);
