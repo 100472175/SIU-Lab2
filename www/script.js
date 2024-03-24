@@ -42,7 +42,7 @@ const add = () => {
   document.querySelector("#task-name").value = "";
   // Check is the task is composed of spaces
   if (tak_name.trim() === "") {
-    vibrate([200, 100, 200]).then(() => {
+    vibrate([500]).then(() => {
       alert("The task name can't be composed of spaces");
       console.log("The task name can't be composed of spaces");
     });
@@ -61,7 +61,7 @@ const add = () => {
 };
 
 const remove = (index) => {
-  vibrate([100, 100, 100]);
+  vibrate([100, 100, 100, 100, 100, 100]);
   taskList.splice(index, 1);
   render();
   saveTasks();
