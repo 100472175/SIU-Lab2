@@ -1,22 +1,31 @@
 #add-task-container {
+  display: flex;
+  margin-top: 20px;
   position: fixed;
   left: 15px;
   right: 15px;
   bottom: 15px;
-  display: flex;
-  align-items: center;
   justify-content: space-between;
 }
 
 #fab-add {
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  /* font-size: 24px; */
+  cursor: pointer;
+  margin-left: 10px;
+
   -webkit-user-select: none;
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background-color: #f44336;
-  color: white;
-  border: none;
+
   font-size: 1.2em;
+}
+#fab-add:hover {
+  opacity: 0.8;
 }
 
 #fab-add:active {
@@ -28,25 +37,22 @@
   flex-grow: 1;
   height: 64px;
   margin-right: 15px;
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
 li {
-  display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 15px;
   border-bottom: 1px solid #e0e0e0;
+  -webkit-animation: alternate 0.1s ease-in-out;
   -webkit-user-select: none;
   user-select: none;
+  text-align: center;
+  word-wrap: break-word;
 }
 
 li:last-child {
@@ -56,11 +62,56 @@ li:last-child {
 .done-class {
   text-decoration: line-through;
   color: #999999;
-  background-color: cyan;
+  background-color: greenyellow;
 }
 
 .not-done-class {
   text-decoration: none;
   color: #333333;
   background-color: white;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+#title {
+  text-align: center;
+  font-weight: bold;
+  color: #333;
+  margin-top: 35px;
+}
+
+#task-list {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  width: 70%;
+  flex-direction: column;
+  margin-left: 15%;
+}
+
+#fab-clear {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto;
+  margin-bottom: 7%;
+}
+#fab-clear:hover {
+  opacity: 0.8;
 }

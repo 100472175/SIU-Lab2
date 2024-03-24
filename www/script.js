@@ -40,10 +40,11 @@ const saveTasks = () => {
 const add = () => {
   const tak_name = document.querySelector("#task-name").value;
   document.querySelector("#task-name").value = "";
-  if (tak_name === "") {
+  // Check is the task is composed of spaces
+  if (tak_name.trim() === "") {
     vibrate([200, 100, 200]).then(() => {
-      alert("You have to input a task name");
-      console.log("You have to input a task name");
+      alert("The task name can't be composed of spaces");
+      console.log("The task name can't be composed of spaces");
     });
     return;
   }
